@@ -21,7 +21,13 @@ class MyApp extends StatelessWidget {
         //   title: const Text('Lorem Ipsum Dolor'),
         // ),
         body: Center(
-          child: Heading(text: 'Hello, world!'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Heading(text: 'Lorem Ipsum Dolor'),
+              BiggerText(text: 'Hellow')
+            ],
+          ),
         ),
       ),
     );
@@ -38,6 +44,37 @@ class Heading extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class BiggerText extends StatefulWidget {
+  final String text;
+
+  const BiggerText({super.key, required this.text});
+
+  @override
+  State<BiggerText> createState() => _BiggerTextState();
+}
+
+class _BiggerTextState extends State<BiggerText> {
+  double _textSize = 16.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(widget.text, style: TextStyle(fontSize: _textSize)),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _textSize = _textSize == 16.0 ? 32.0 : 16.0;
+            });
+          },
+          child: const Text('Toggle text size'),
+        )
+      ],
     );
   }
 }
