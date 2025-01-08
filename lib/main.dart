@@ -91,8 +91,7 @@ class FirstScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.blue,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+        body: Center(
           child: Container(
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.all(10),
