@@ -241,6 +241,16 @@ class DropDownStateButton extends State<DropDownButton> {
                       });
                     }),
                 title: Text('Agree / Disagree ($agree)'),
+              ),
+              Image.network(
+                'https://picsum.photos/200/300',
+                width: 200,
+                height: 200,
+              ),
+              Image.asset(
+                'images/android.png',
+                width: 200,
+                height: 200,
               )
             ],
           )
