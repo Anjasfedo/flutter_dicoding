@@ -11,137 +11,69 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
+        // debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const FirstScreen());
+        home: const DetailScreen());
   }
 }
 
-// class Heading extends StatelessWidget {
-//   final String text;
-
-//   const Heading({super.key, required this.text});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       text,
-//       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//     );
-//   }
-// }
-
-// class BiggerText extends StatefulWidget {
-//   final String text;
-
-//   const BiggerText({super.key, required this.text});
-
-//   @override
-//   State<BiggerText> createState() => _BiggerTextState();
-// }
-
-// class _BiggerTextState extends State<BiggerText> {
-//   double _textSize = 16.0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Text(widget.text, style: TextStyle(fontSize: _textSize)),
-//         ElevatedButton(
-//           onPressed: () {
-//             setState(() {
-//               _textSize = _textSize == 16.0 ? 32.0 : 16.0;
-//             });
-//           },
-//           child: const Text('Toggle text sizess'),
-//         )
-//       ],
-//     );
-//   }
-// }
-
-class FirstScreen extends StatelessWidget {
-  const FirstScreen({super.key});
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'lorem ipsum',
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search, color: Colors.white),
-            ),
-          ],
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 40),
+            alignment: Alignment.center,
+            child: const Text(
+              'Farm House lembang',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
-          backgroundColor: Colors.blue,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-
-                // color: Colors.blue,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 20),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
                   children: [
-                    Icon(Icons.share),
-                    Icon(Icons.thumb_up),
-                    Icon(Icons.thumb_down),
+                    Icon(Icons.calendar_today_rounded),
+                    Text('Open Every Day'),
                   ],
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  // shape: BoxShape.circle,
-                  // boxShadow: const [
-                  //   BoxShadow(
-                  //     color: Colors.black,
-                  //     blurRadius: 10,
-                  //     spreadRadius: 5,
-                  //   )
-                  // ],
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
+                Column(
+                  children: [
+                    Icon(Icons.access_time),
+                    Text('09:00 - 20:00'),
+                  ],
                 ),
-
-                // color: Colors.blue,
-                child: const Text(
-                  'Hello World',
-                  style: TextStyle(fontSize: 40),
+                Column(
+                  children: [
+                    Icon(Icons.monetization_on_outlined),
+                    Text('Rp. 25.000'),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: const Icon(
-              Icons.add,
-            )));
+          Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 20,
+              horizontal: 10,
+            ),
+            child: const Text(
+              'Berada di jalur utama Bandung Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
