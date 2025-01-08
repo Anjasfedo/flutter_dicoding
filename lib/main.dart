@@ -92,31 +92,50 @@ class FirstScreen extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
         body: Center(
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              // shape: BoxShape.circle,
-              // boxShadow: const [
-              //   BoxShadow(
-              //     color: Colors.black,
-              //     blurRadius: 10,
-              //     spreadRadius: 5,
-              //   )
-              // ],
-              border: Border.all(
-                color: Colors.green,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.circular(50),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
 
-            // color: Colors.blue,
-            child: const Text(
-              'Hello World',
-              style: TextStyle(fontSize: 40),
-            ),
+                // color: Colors.blue,
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(Icons.share),
+                    Icon(Icons.thumb_up),
+                    Icon(Icons.thumb_down),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  // shape: BoxShape.circle,
+                  // boxShadow: const [
+                  //   BoxShadow(
+                  //     color: Colors.black,
+                  //     blurRadius: 10,
+                  //     spreadRadius: 5,
+                  //   )
+                  // ],
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+
+                // color: Colors.blue,
+                child: const Text(
+                  'Hello World',
+                  style: TextStyle(fontSize: 40),
+                ),
+              ),
+            ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
