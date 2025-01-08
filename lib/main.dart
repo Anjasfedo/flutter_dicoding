@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          fontFamily: 'PlusJakartaSans',
         ),
         home: const FirstScreen());
   }
@@ -29,7 +30,8 @@ class FirstScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text(
             'lorem ipsum',
-            style: TextStyle(color: Colors.white),
+            style:
+                TextStyle(color: Colors.white, fontFamily: 'PlusJakartaSans'),
           ),
           actions: [
             IconButton(
@@ -51,7 +53,10 @@ class FirstScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {},
-                child: const Text('data'),
+                child: const Text(
+                  'data',
+                  style: TextStyle(fontFamily: 'PlusJakartaSans'),
+                ),
               ),
               TextButton(
                 onPressed: () {},
