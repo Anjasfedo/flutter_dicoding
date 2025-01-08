@@ -93,48 +93,31 @@ class FirstScreen extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-
-                // color: Colors.blue,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(Icons.share),
-                    Icon(Icons.thumb_up),
-                    Icon(Icons.thumb_down),
-                  ],
-                ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('data'),
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  // shape: BoxShape.circle,
-                  // boxShadow: const [
-                  //   BoxShadow(
-                  //     color: Colors.black,
-                  //     blurRadius: 10,
-                  //     spreadRadius: 5,
-                  //   )
-                  // ],
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-
-                // color: Colors.blue,
+              TextButton(
+                onPressed: () {},
                 child: const Text(
-                  'Hello World',
-                  style: TextStyle(fontSize: 40),
+                  'data',
                 ),
               ),
+              OutlinedButton(
+                child: const Text('Outlined Button'),
+                onPressed: () {
+                  // Aksi ketika button diklik
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.volume_up),
+                tooltip: 'Increase volume by 10',
+                onPressed: () {
+                  // Aksi ketika button diklik
+                },
+              ),
+              const DropDownButton()
             ],
           ),
         ),
@@ -143,5 +126,44 @@ class FirstScreen extends StatelessWidget {
             child: const Icon(
               Icons.add,
             )));
+  }
+}
+
+class DropDownButton extends StatefulWidget {
+  const DropDownButton({super.key});
+
+  @override
+  State<DropDownButton> createState() => DropDownStateButton();
+}
+
+class DropDownStateButton extends State<DropDownButton> {
+  String? language;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: DropdownButton(
+          items: const [
+            DropdownMenuItem(
+              value: 'kotlin',
+              child: Text('Kotlin'),
+            ),
+            DropdownMenuItem(
+              value: 'dart',
+              child: Text('Dart'),
+            ),
+            DropdownMenuItem(
+              value: 'java',
+              child: Text('Java'),
+            ),
+          ],
+          value: language,
+          hint: const Text('Choose Language'),
+          onChanged: (String? value) {
+            setState(() {
+              language = value;
+            });
+          }),
+    );
   }
 }
