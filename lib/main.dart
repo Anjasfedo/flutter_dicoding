@@ -20,51 +20,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class Heading extends StatelessWidget {
-//   final String text;
-
-//   const Heading({super.key, required this.text});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       text,
-//       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//     );
-//   }
-// }
-
-// class BiggerText extends StatefulWidget {
-//   final String text;
-
-//   const BiggerText({super.key, required this.text});
-
-//   @override
-//   State<BiggerText> createState() => _BiggerTextState();
-// }
-
-// class _BiggerTextState extends State<BiggerText> {
-//   double _textSize = 16.0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Text(widget.text, style: TextStyle(fontSize: _textSize)),
-//         ElevatedButton(
-//           onPressed: () {
-//             setState(() {
-//               _textSize = _textSize == 16.0 ? 32.0 : 16.0;
-//             });
-//           },
-//           child: const Text('Toggle text sizess'),
-//         )
-//       ],
-//     );
-//   }
-// }
-
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
 
@@ -91,8 +46,8 @@ class FirstScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.blue,
         ),
-        body: Center(
-          child: Column(
+        body: Expanded(
+          child: ListView(
             children: [
               ElevatedButton(
                 onPressed: () {},
@@ -139,31 +94,173 @@ class DropDownButton extends StatefulWidget {
 class DropDownStateButton extends State<DropDownButton> {
   String? language;
 
+  String _name = '';
+
+  bool lightOn = false;
+
+  bool agree = false;
+
+  TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: DropdownButton(
-          items: const [
-            DropdownMenuItem(
-              value: 'kotlin',
-              child: Text('Kotlin'),
+      child: Column(
+        children: [
+          Text(language ?? 'Select language'),
+          DropdownButton(
+              items: const [
+                DropdownMenuItem(
+                  value: 'kotlin',
+                  child: Text('Kotlin'),
+                ),
+                DropdownMenuItem(
+                  value: 'dart',
+                  child: Text('Dart'),
+                ),
+                DropdownMenuItem(
+                  value: 'java',
+                  child: Text('Java'),
+                ),
+              ],
+              value: language,
+              hint: const Text('Choose Language'),
+              onChanged: (String? value) {
+                setState(() {
+                  language = value;
+                });
+              }),
+          Text(_name),
+          TextField(
+            onChanged: (String value) {
+              setState(() {
+                _name = value;
+              });
+            },
+          ),
+          TextField(
+            onSubmitted: (String value) {
+              setState(() {
+                _name = value;
+              });
+            },
+          ),
+          TextField(
+            controller: _controller,
+            decoration: const InputDecoration(
+              hintText: 'Write your name here...',
+              labelText: 'Your Name',
             ),
-            DropdownMenuItem(
-              value: 'dart',
-              child: Text('Dart'),
-            ),
-            DropdownMenuItem(
-              value: 'java',
-              child: Text('Java'),
-            ),
-          ],
-          value: language,
-          hint: const Text('Choose Language'),
-          onChanged: (String? value) {
-            setState(() {
-              language = value;
-            });
-          }),
+            onChanged: (String value) {
+              setState(() {
+                _name = value;
+              });
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Submit'),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text('Hello, $_name'),
+                    );
+                  });
+            },
+          ),
+          Switch(
+            value: lightOn,
+            onChanged: (bool value) {
+              setState(() {
+                lightOn = value;
+              });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(lightOn ? 'On' : 'Of'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Radio(
+                  value: 'kotlin',
+                  groupValue: language,
+                  onChanged: (String? value) {
+                    setState(
+                      () {
+                        language = value;
+                        showSnackBar();
+                      },
+                    );
+                  },
+                ),
+                title: const Text('Kotlin'),
+              ),
+              ListTile(
+                leading: Radio(
+                  value: 'dart',
+                  groupValue: language,
+                  onChanged: (String? value) {
+                    setState(
+                      () {
+                        language = value;
+                        showSnackBar();
+                      },
+                    );
+                  },
+                ),
+                title: const Text('Dart'),
+              ),
+              ListTile(
+                leading: Radio(
+                  value: 'java',
+                  groupValue: language,
+                  onChanged: (String? value) {
+                    setState(
+                      () {
+                        language = value;
+                        showSnackBar();
+                      },
+                    );
+                  },
+                ),
+                title: const Text('Java'),
+              ),
+              ListTile(
+                leading: Checkbox(
+                    value: agree,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        agree = value!;
+                      });
+                    }),
+                title: Text('Agree / Disagree ($agree)'),
+              )
+            ],
+          )
+        ],
+      ),
     );
+  }
+
+  void showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$language selected'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
