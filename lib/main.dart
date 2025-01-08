@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'PlusJakartaSans',
         ),
-        home: const FirstScreen());
+        home: const ResponsivePage());
   }
 }
 
@@ -483,5 +483,153 @@ class SecondScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// class HomePage extends StatelessWidget {
+//   const HomePage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Size screensize = MediaQuery.of(context).size;
+//     Orientation orientation = MediaQuery.of(context).orientation;
+
+//     return Scaffold(
+//       backgroundColor: Colors.blueGrey,
+//       body: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: [
+//           Text(
+//             'Screen width: ${screensize.width.toStringAsFixed(2)}',
+//             style: const TextStyle(color: Colors.white, fontSize: 18),
+//             textAlign: TextAlign.center,
+//           ),
+//           Text(
+//             'Screen height: ${screensize.height.toStringAsFixed(2)}',
+//             style: const TextStyle(color: Colors.white, fontSize: 18),
+//             textAlign: TextAlign.center,
+//           ),
+//           Text(
+//             'Orientation: $orientation',
+//             style: const TextStyle(color: Colors.white, fontSize: 18),
+//             textAlign: TextAlign.center,
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: Colors.blueGrey,
+      body: Row(
+        children: [
+          Expanded(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Media Query ${screenSize.width.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'LayoutBuilder: ${constraints.maxWidth}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Media Query ${screenSize.width.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'LayoutBuilder: ${constraints.maxWidth}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ResponsivePage extends StatelessWidget {
+  const ResponsivePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth < 600) {
+              return ListView(
+                children: _generateContainers(),
+              );
+            } else if (constraints.maxWidth < 9000) {
+              return GridView.count(
+                crossAxisCount: 4,
+                children: _generateContainers(),
+              );
+            } else {
+              return GridView.count(
+                crossAxisCount: 6,
+                children: _generateContainers(),
+              );
+            }
+          },
+        ));
+  }
+
+  List<Widget> _generateContainers() {
+    return List.generate(20, (index) {
+      return Container(
+        margin: const EdgeInsets.all(8),
+        color: Colors.blueGrey,
+        height: 200,
+      );
+    });
   }
 }
