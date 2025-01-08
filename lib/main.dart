@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'PlusJakartaSans',
         ),
-        home: const ExpandedFlexiblePage());
+        home: const FirstScreen());
   }
 }
 
@@ -51,6 +51,16 @@ class FirstScreen extends StatelessWidget {
         body: Expanded(
           child: ListView(
             children: [
+              ElevatedButton(
+                child: const Text('Pindah Screen'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const SecondScreen(
+                      message: 'Hello from first screen',
+                    );
+                  }));
+                },
+              ),
               ElevatedButton(
                 onPressed: () {},
                 child: const Text(
@@ -442,6 +452,34 @@ class FlexibleWidged extends StatelessWidget {
             'Flexible',
             style: TextStyle(color: Colors.teal, fontSize: 24),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  final String message;
+  const SecondScreen({super.key, required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Screen'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(message),
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Kembali'),
+            ),
+          ],
         ),
       ),
     );
