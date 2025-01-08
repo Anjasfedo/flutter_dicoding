@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'PlusJakartaSans',
         ),
-        home: const ScrollingScreen());
+        home: const ExpandedFlexiblePage());
   }
 }
 
@@ -288,61 +288,161 @@ class ScrollingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          // ListView(
-          //   children: numberList.map((number) {
-          //     return Container(
-          //       height: 250,
-          //       decoration: BoxDecoration(
-          //         color: Colors.grey,
-          //         border: Border.all(color: Colors.black),
-          //       ),
-          //       child: Center(
-          //         child: Text(
-          //           '$number',
-          //           style: const TextStyle(
-          //             fontSize: 50,
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   }).toList(),
-          // ),
-          // ListView.builder(
-          //     itemCount: numberList.length,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Container(
-          //         height: 250,
-          //         decoration: BoxDecoration(
-          //           color: Colors.grey,
-          //           border: Border.all(color: Colors.black),
-          //         ),
-          //         child: Center(
-          //           child: Text(
-          //             '${numberList[index]}',
-          //             style: const TextStyle(fontSize: 50),
-          //           ),
-          //         ),
-          //       );
-          //     }));
-          ListView.separated(
-        itemCount: numberList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 250,
-            decoration: BoxDecoration(
-                color: Colors.grey, border: Border.all(color: Colors.black)),
-            child: Center(
-              child: Text(
-                '${numberList[index]}',
-                style: const TextStyle(fontSize: 50),
-              ),
+        body:
+            // ListView(
+            //   children: numberList.map((number) {
+            //     return Container(
+            //       height: 250,
+            //       decoration: BoxDecoration(
+            //         color: Colors.grey,
+            //         border: Border.all(color: Colors.black),
+            //       ),
+            //       child: Center(
+            //         child: Text(
+            //           '$number',
+            //           style: const TextStyle(
+            //             fontSize: 50,
+            //           ),
+            //         ),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
+            // ListView.builder(
+            //     itemCount: numberList.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return Container(
+            //         height: 250,
+            //         decoration: BoxDecoration(
+            //           color: Colors.grey,
+            //           border: Border.all(color: Colors.black),
+            //         ),
+            //         child: Center(
+            //           child: Text(
+            //             '${numberList[index]}',
+            //             style: const TextStyle(fontSize: 50),
+            //           ),
+            //         ),
+            //       );
+            //     }));
+            //     ListView.separated(
+            //   itemCount: numberList.length,
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return Container(
+            //       height: 250,
+            //       decoration: BoxDecoration(
+            //           color: Colors.grey, border: Border.all(color: Colors.black)),
+            //       child: Center(
+            //         child: Text(
+            //           '${numberList[index]}',
+            //           style: const TextStyle(fontSize: 50),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   separatorBuilder: (BuildContext context, int index) {
+            //     return const Divider();
+            //   },
+            // ),
+            const Rainbow());
+  }
+}
+
+class Rainbow extends StatelessWidget {
+  const Rainbow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            color: Colors.red,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            color: Colors.green,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: Colors.blue,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ExpandedFlexiblePage extends StatelessWidget {
+  const ExpandedFlexiblePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ExpandedWidget(),
+                ExpandedWidget(),
+                FlexibleWidged(),
+              ],
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider();
-        },
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExpandedWidget extends StatelessWidget {
+  const ExpandedWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.teal,
+          border: Border.all(color: Colors.white),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Expanded',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FlexibleWidged extends StatelessWidget {
+  const FlexibleWidged({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.tealAccent,
+          border: Border.all(color: Colors.white),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Flexible',
+            style: TextStyle(color: Colors.teal, fontSize: 24),
+          ),
+        ),
       ),
     );
   }
