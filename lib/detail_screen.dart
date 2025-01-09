@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/model/tourism_place.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final TourismPlace place;
+  const DetailScreen({super.key, required this.place});
 
   @override
   Widget build(BuildContext context) {
@@ -10,36 +12,84 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset('images/farm-house.jpg'),
+            Stack(
+              children: [
+                Image.asset(place.imageAsset),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const FavoriteButton()
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Container(
               margin: const EdgeInsets.only(top: 16),
               alignment: Alignment.center,
-              child: const Text(
-                'Farm House lembang',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              child: Text(
+                place.name,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
                     children: [
-                      Icon(Icons.calendar_today_rounded),
-                      Text('Open Every Day'),
+                      const Icon(Icons.calendar_today_rounded),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        place.openDays,
+                        style: informationStyle(),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
-                      Icon(Icons.access_time),
-                      Text('09:00 - 20:00'),
+                      const Icon(Icons.access_time),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        place.openTime,
+                        style: informationStyle(),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
-                      Icon(Icons.monetization_on_outlined),
-                      Text('Rp. 25.000'),
+                      const Icon(Icons.monetization_on_outlined),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        'Rp. 25.000',
+                        style: informationStyle(),
+                      ),
                     ],
                   ),
                 ],
@@ -50,8 +100,8 @@ class DetailScreen extends StatelessWidget {
                 vertical: 10,
                 horizontal: 10,
               ),
-              child: const Text(
-                'Berada di jalur utama Bandung Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable',
+              child: Text(
+                place.description,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -59,37 +109,50 @@ class DetailScreen extends StatelessWidget {
               height: 250,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  Padding(
+                children: place.imageUrls.map((url) {
+                  return Padding(
                     padding: const EdgeInsets.all(4),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                          'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
+                      child: Image.network(url),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                          'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                          'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-                    ),
-                  ),
-                ],
+                  );
+                }).toList(),
               ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  TextStyle informationStyle() {
+    return const TextStyle(fontSize: 8);
+  }
+}
+
+class FavoriteButton extends StatefulWidget {
+  const FavoriteButton({super.key});
+
+  @override
+  State<FavoriteButton> createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.red,
+      ),
+      onPressed: () {
+        setState(() {
+          isFavorite = !isFavorite;
+        });
+      },
     );
   }
 }

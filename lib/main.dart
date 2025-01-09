@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/detail_screen.dart';
+import 'package:hello_world/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         // debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Wisata Bandung',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: 'Oxygen',
         ),
-        home: const DetailScreen());
+        home: const MainScreen());
   }
 }
